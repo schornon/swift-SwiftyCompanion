@@ -1,2 +1,2 @@
 # swift-SwiftyCompanion
-442 swift project
+42 swift project
