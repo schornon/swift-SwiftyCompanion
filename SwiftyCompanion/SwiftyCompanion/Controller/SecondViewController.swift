@@ -89,13 +89,12 @@ extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "projectsCellIdentifire", for: indexPath) as! ProjectsTableViewCell
-            cell.projectNameLabel.text = String(profileData!.projectName[indexPath.row]!)
-            cell.markLabel.text = "\(String(describing: Int(profileData!.projectMark[indexPath.row]!))) %"
-            cell.statusLabel.text = profileData!.projectProgress[indexPath.row]
+            cell.projectNameLabel.text = String(profileData!.projectNameArray[indexPath.row])
+            cell.markLabel.text = "\(String(describing: Int(profileData!.projectMarkArray[indexPath.row]))) %"
+            cell.statusLabel.text = profileData!.projectProgressArray[indexPath.row]
             cell.statusLabel.textColor = setProjectStatusColor(statusLabel: cell.statusLabel.text!)
             return cell
         }
-        
     }
     
     func setProjectStatusColor(statusLabel: String) -> UIColor {
@@ -128,5 +127,4 @@ extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
-
 

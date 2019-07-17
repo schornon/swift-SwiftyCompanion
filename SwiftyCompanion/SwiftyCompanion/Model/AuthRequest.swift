@@ -40,7 +40,6 @@ class AuthRequest: NSObject {
             self.token = verify as! String
             checkToken()
         }
-        
     }
     
     private func checkToken() {
@@ -54,7 +53,7 @@ class AuthRequest: NSObject {
             case .success:
                 guard let value = response.result.value else { return }
                 let json = JSON(value)
-                print("Expire in: \(json["expires_in_seconds"]) sec.")
+                print("Expire in: \(json["expires_in_seconds"]) msec.")
             case .failure(let error):
                 UserDefaults.standard.removeObject(forKey: "token")
                 print("Error. Not valid token", error)

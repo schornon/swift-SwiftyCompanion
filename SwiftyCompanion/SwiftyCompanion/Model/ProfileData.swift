@@ -32,6 +32,11 @@ class ProfileData {
     var projectStatus : [Int : Bool] = [:]
     var projectProgress : [Int : String] = [:]
     
+    var projectNameArray : [String] = []
+    var projectMarkArray : [Float] = []
+    var projectStatusArray : [Bool?] = []
+    var projectProgressArray : [String] = []
+    
     
     init(json: JSON) {
         for (key, value) in json {
@@ -61,8 +66,7 @@ class ProfileData {
                 
             case "projects_users":
                     self.projectsCount = value.count
-                    print(value)
-                getProjectsFromJson(value: value)
+                    getProjectsFromJson(value: value)
                 
             default:
                 print("")
@@ -95,22 +99,25 @@ class ProfileData {
     func getProjectsFromJson(value: JSON) {
         var i = 0
         for _ in value {
-            projectName[i] = value[i]["project"]["slug"].string!
-            projectStatus[i] = value[i]["validated?"].bool
-            
-            if projectStatus[i] == true {
-                projectProgress[i] = "Finished"
-            } else {
-                projectProgress[i] = "Failure"
-            }
-            if (value[i]["final_mark"].float) != nil {
-                projectMark[i] = value[i]["final_mark"].float!
-            } else {
-                projectProgress[i] = "In Progress"
-                projectMark[i] = 0
+            if (value[i]["project"]["parent_id"].int == nil) &&
+                (strstr(value[i]["project"]["slug"].string, "piscine-c-") == nil) {
+                projectNameArray.append(value[i]["project"]["slug"].string!)
+                projectStatusArray.append(value[i]["validated?"].bool)
+                if projectStatusArray.last == true {
+                    projectProgressArray.append("Finished")
+                } else if projectStatusArray.last == false {
+                    projectProgressArray.append("Failure")
+                } else {
+                    projectProgressArray.append("In Progress")
+                }
+                if (value[i]["final_mark"].float) != nil {
+                    projectMarkArray.append(value[i]["final_mark"].float!)
+                } else {
+                    projectMarkArray.append(0)
+                }
             }
             i += 1
         }
-        self.projectsCount = projectName.count
+        self.projectsCount = projectNameArray.count
     }
 }
