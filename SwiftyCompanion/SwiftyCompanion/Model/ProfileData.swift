@@ -27,11 +27,6 @@ class ProfileData {
     var skillNames : [Int : String] = [:]
     var skillLvls : [Int : Float] = [:]
     
-    var projectName : [Int : String] = [:]
-    var projectMark : [Int : Float] = [:]
-    var projectStatus : [Int : Bool] = [:]
-    var projectProgress : [Int : String] = [:]
-    
     var projectNameArray : [String] = []
     var projectMarkArray : [Float] = []
     var projectStatusArray : [Bool?] = []
